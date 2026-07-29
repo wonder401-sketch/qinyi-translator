@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>亲情翻译官 · 网页版</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <!-- 顶部 -->
+    <header class="app-header">
+      <div class="brand">
+        <div class="avatar">🌉</div>
+        <div class="brand-text">
+          <div class="title">亲情翻译官</div>
+          <div class="subtitle">先看懂爸妈说了啥，再帮你亲情转化</div>
+        </div>
+      </div>
+      <div class="mode-switch" id="modeSwitch">
+        <button class="mode-btn active" data-mode="auto">自动</button>
+        <button class="mode-btn" data-mode="elder">长辈→我</button>
+        <button class="mode-btn" data-mode="child">我→长辈</button>
+      </div>
+    </header>
+
+    <!-- 聊天区 -->
+    <main class="chat" id="chat">
+      <div class="welcome" id="welcome">
+        <div class="welcome-emoji">💬</div>
+        <p>把爸妈发来的话粘贴进来，或说说你想回给爸妈的话。</p>
+        <p class="welcome-hint">AI 会<b>先展示原文</b>，再做<b>亲情转化</b>。</p>
+      </div>
+    </main>
+
+    <!-- 称呼自定义（选填） -->
+    <div class="address-row">
+      <label for="address">对方称呼</label>
+      <input id="address" type="text" maxlength="8" autocomplete="off"
+             placeholder="选填，如：爷爷 / 外婆 / 老爸… 留空用默认" />
+    </div>
+
+    <!-- 输入区 -->
+    <footer class="composer">
+      <button class="icon-btn" id="voiceBtn" title="语音输入（需浏览器支持）">🎙️</button>
+      <textarea id="input" placeholder="输入或粘贴消息…（Enter 发送 / Shift+Enter 换行）" rows="1"></textarea>
+      <button class="send-btn" id="sendBtn">发送</button>
+    </footer>
+    <div class="status" id="status"></div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
