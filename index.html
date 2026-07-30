@@ -109,26 +109,77 @@
             </div>
           </header>
 
-          <main class="chat" id="chat">
-            <div class="welcome" id="welcome">
-              <div class="welcome-emoji">💬</div>
-              <p>把爸妈发来的话粘贴进来，或说说你想回给爸妈的话。</p>
-              <p class="welcome-hint">AI 会<b>先展示原文</b>，再做<b>亲情转化</b>。</p>
+          <!-- 对话视图 -->
+          <div class="view view-chat" id="viewChat">
+            <main class="chat" id="chat">
+              <div class="welcome" id="welcome">
+                <div class="welcome-emoji">💬</div>
+                <p>把爸妈发来的话粘贴进来，或说说你想回给爸妈的话。</p>
+                <p class="welcome-hint">AI 会<b>先展示原文</b>，再做<b>亲情转化</b>。<br>试试带「头晕 / 摔倒」等关键词，看紧急提醒效果。</p>
+              </div>
+            </main>
+            <div class="address-row">
+              <label for="address">对方称呼</label>
+              <input id="address" type="text" maxlength="8" autocomplete="off"
+                     placeholder="选填，如：爷爷 / 外婆 / 老爸… 留空用默认" />
             </div>
-          </main>
-
-          <div class="address-row">
-            <label for="address">对方称呼</label>
-            <input id="address" type="text" maxlength="8" autocomplete="off"
-                   placeholder="选填，如：爷爷 / 外婆 / 老爸… 留空用默认" />
+            <footer class="composer">
+              <button class="icon-btn" id="voiceBtn" title="语音输入（需浏览器支持）">🎙️</button>
+              <textarea id="input" placeholder="输入或粘贴消息…（Enter 发送 / Shift+Enter 换行）" rows="1"></textarea>
+              <button class="send-btn" id="sendBtn">发送</button>
+            </footer>
+            <div class="status" id="status"></div>
           </div>
 
-          <footer class="composer">
-            <button class="icon-btn" id="voiceBtn" title="语音输入（需浏览器支持）">🎙️</button>
-            <textarea id="input" placeholder="输入或粘贴消息…（Enter 发送 / Shift+Enter 换行）" rows="1"></textarea>
-            <button class="send-btn" id="sendBtn">发送</button>
-          </footer>
-          <div class="status" id="status"></div>
+          <!-- 周报视图 -->
+          <section class="view view-report" id="viewReport">
+            <div class="report-scroll">
+              <div class="report-h">📊 本周亲情周报</div>
+              <div class="report-date">7月24日 — 7月30日</div>
+              <div class="report-stats">
+                <div class="report-stat"><b>23</b><span>收到消息</span></div>
+                <div class="report-stat"><b>5</b><span>提及想你</span></div>
+                <div class="report-stat"><b>0</b><span>真实通话</span></div>
+              </div>
+              <div class="report-card">
+                <div class="report-card-h">💗 外婆的情绪分布</div>
+                <div class="emo-bar"><span>😊 开心 40%</span><i style="width:40%;background:#43A047"></i></div>
+                <div class="emo-bar"><span>😔 失落 30%</span><i style="width:30%;background:#FF8A3D"></i></div>
+                <div class="emo-bar"><span>💕 关心 20%</span><i style="width:20%;background:#15A9BC"></i></div>
+                <div class="emo-bar"><span>💭 想念 10%</span><i style="width:10%;background:#9E9E9E"></i></div>
+              </div>
+              <div class="report-card">
+                <div class="report-card-h">🔑 高频关键词</div>
+                <div class="chip-row">
+                  <span class="chip">想你 ×5</span>
+                  <span class="chip">回家 ×3</span>
+                  <span class="chip">老王 ×3</span>
+                  <span class="chip">头晕 ×2</span>
+                </div>
+              </div>
+              <div class="report-card report-card-warm">
+                <div class="report-card-h">💡 AI 建议</div>
+                <p class="report-suggest">外婆本周多次提到想你、2次提及头晕。<b>建议本周至少1次视频通话</b>，先聊聊老王近况和身体。</p>
+                <button class="report-video-btn" id="reportVideoBtn">📞 一键发起视频通话</button>
+              </div>
+            </div>
+          </section>
+
+          <!-- 底部 Tab -->
+          <nav class="app-tabs" id="appTabs">
+            <button class="tab-btn active" data-view="chat">💬 对话</button>
+            <button class="tab-btn" data-view="report">📊 周报</button>
+          </nav>
+
+          <!-- 紧急告警遮罩 -->
+          <div class="alert-overlay" id="alertOverlay" style="display:none">
+            <div class="alert-icon">⚠️</div>
+            <h2 id="alertTitle">外婆可能需要帮助！</h2>
+            <p id="alertDesc">语音中提到「头晕」「站不稳」<br>已为您自动回复发信安抚</p>
+            <button class="alert-btn" id="alertCall">📞 立即拨打视频</button><br>
+            <button class="alert-btn-secondary" id="alertNotify">通知家人</button>
+            <button class="alert-btn-secondary" id="alertClose">我知道了</button>
+          </div>
         </div>
       </div>
     </div>
