@@ -96,7 +96,7 @@
     }
     // 如果没提取到，从内容中找引号短句
     if (replies.length === 0) {
-      var quoteRe / [\"""]([^"""]{2,14})["""]/g;
+      var quoteRe = /[“”]([^“”]{2,14})[“”]/g;
       while ((m = quoteRe.exec(text)) !== null) {
         var q = m[1].trim();
         if (q.length >= 2 && q.length <= 14 && !/^[。！？]/.test(q)) {
