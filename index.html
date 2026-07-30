@@ -3,51 +3,258 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>亲情翻译官 · 网页版</title>
+  <title>亲情翻译官 · AI 代际翻译器 | 阿里小有可为参赛作品</title>
+  <meta name="description" content="用 AI 帮子女听懂爸妈的每一条消息——先展示原文，再做亲情转化、情绪识别、潜台词解读。">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="app">
-    <!-- 顶部 -->
-    <header class="app-header">
-      <div class="brand">
-        <div class="avatar">🌉</div>
-        <div class="brand-text">
-          <div class="title">亲情翻译官</div>
-          <div class="subtitle">先看懂爸妈说了啥，再帮你亲情转化</div>
+
+<!-- ==================== HERO ==================== -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-badge">🏆 阿里「小有可为」AI 向善挑战赛 · 参赛作品</div>
+    <h1 class="hero-title">🧓⇄👦 亲情翻译官</h1>
+    <p class="hero-sub">爸妈照常发微信，子女打开手机就懂他们的情绪、潜台词和没说出口的想念</p>
+    <div class="hero-actions">
+      <a href="#demo" class="btn-hero btn-primary">💬 立即体验</a>
+      <a href="#features" class="btn-hero btn-outline">✨ 了解更多</a>
+    </div>
+  </div>
+  <div class="hero-wave">
+    <svg viewBox="0 0 1440 120" preserveAspectRatio="none"><path d="M0,64 C360,120 720,0 1080,80 C1260,110 1380,90 1440,100 L1440,120 L0,120 Z" fill="#F5F7FA"/></svg>
+  </div>
+</section>
+
+<!-- ==================== 场景预览（首屏吸睛） ==================== -->
+<section class="scene-preview" id="preview">
+  <div class="container">
+    <p class="section-label">核心能力</p>
+    <h2 class="section-title">一条消息，四层读懂</h2>
+    <p class="section-desc">不只是"语音转文字"，而是真正理解长辈想表达什么</p>
+
+    <div class="phone-showcase">
+      <!-- 左侧：示例 AI 卡片 -->
+      <div class="demo-card-standalone">
+        <div class="demo-card-header">
+          <span class="demo-card-avatar">🔊</span>
+          <span>「爸的语音」47″</span>
+        </div>
+        <div class="ai-card ai-card-demo">
+          <div class="tag tag-original">📜 长辈原话（先展示原文）</div>
+          <div class="content">"今天买了条鱼，老王住院了，你们都不在家……"</div>
+          <div class="tag tag-summary">📝 AI 亲情翻译</div>
+          <div class="content">爸今天有些失落：买了条鱼、惦记住院的老王、给小明发消息一直没等到回复。</div>
+          <div class="tag tag-emotion">💗 情绪识别</div>
+          <div class="content">😔 有点失落 + 💕 关心家里日常</div>
+          <div class="tag tag-intent">💡 潜台词</div>
+          <div class="content">他不是催子女买鱼，是<b>想有人听他唠唠、想子女了</b>。</div>
+          <div class="chip-hint">💡 推荐回复（点击复制）:</div>
+          <div class="chip-row">
+            <span class="chip">这周回去看他</span>
+            <span class="chip">帮问问老王情况</span>
+            <span class="chip">周末视频聊</span>
+          </div>
+          <button class="copy-btn">📋 复制翻译结果</button>
         </div>
       </div>
-      <div class="mode-switch" id="modeSwitch">
-        <button class="mode-btn active" data-mode="auto">自动</button>
-        <button class="mode-btn" data-mode="elder">长辈→我</button>
-        <button class="mode-btn" data-mode="child">我→长辈</button>
-      </div>
-    </header>
 
-    <!-- 聊天区 -->
-    <main class="chat" id="chat">
-      <div class="welcome" id="welcome">
-        <div class="welcome-emoji">💬</div>
-        <p>把爸妈发来的话粘贴进来，或说说你想回给爸妈的话。</p>
-        <p class="welcome-hint">AI 会<b>先展示原文</b>，再做<b>亲情转化</b>。</p>
+      <!-- 右侧：四大模块说明 -->
+      <div class="feature-pods">
+        <div class="pod pod-primary">
+          <div class="pod-icon">📝</div>
+          <div class="pod-text"><b>智能翻译官</b><br><span>长语音转写 + 摘要 + 四层解读</span></div>
+        </div>
+        <div class="pod pod-warm">
+          <div class="pod-icon">💬</div>
+          <div class="pod-text"><b>温度润色器</b><br><span>输入2字 → AI生成暖心回复</span></div>
+        </div>
+        <div class="pod pod-danger">
+          <div class="pod-icon">🚨</div>
+          <div class="pod-text"><b>紧急强提醒</b><br><span>头晕/摔倒关键词分级告警</span></div>
+        </div>
+        <div class="pod pod-success">
+          <div class="pod-icon">📊</div>
+          <div class="pod-text"><b>亲情周报</b><br><span>每周情绪趋势 + 关键词分析</span></div>
+        </div>
       </div>
-    </main>
+    </div>
+  </div>
+</section>
 
-    <!-- 称呼自定义（选填） -->
-    <div class="address-row">
-      <label for="address">对方称呼</label>
-      <input id="address" type="text" maxlength="8" autocomplete="off"
-             placeholder="选填，如：爷爷 / 外婆 / 老爸… 留空用默认" />
+<!-- ==================== 在线体验 DEMO ==================== -->
+<section class="demo-section" id="demo">
+  <div class="container">
+    <p class="section-label">在线体验</p>
+    <h2 class="section-title">现在就试试</h2>
+    <p class="section-desc">粘贴爸妈发来的一句话，或说说你想回什么 → AI 帮你翻译/润色</p>
+
+    <div class="phone-frame">
+      <div class="phone-notch"></div>
+      <div class="phone-screen">
+        <!-- ===== 嵌入原有工具 UI ===== -->
+        <div class="app" id="app">
+          <header class="app-header">
+            <div class="brand">
+              <div class="avatar">🌉</div>
+              <div class="brand-text">
+                <div class="title">亲情翻译官</div>
+                <div class="subtitle">先看懂爸妈说了啥，再帮你亲情转化</div>
+              </div>
+            </div>
+            <div class="mode-switch" id="modeSwitch">
+              <button class="mode-btn active" data-mode="auto">自动</button>
+              <button class="mode-btn" data-mode="elder">长辈→我</button>
+              <button class="mode-btn" data-mode="child">我→长辈</button>
+            </div>
+          </header>
+
+          <main class="chat" id="chat">
+            <div class="welcome" id="welcome">
+              <div class="welcome-emoji">💬</div>
+              <p>把爸妈发来的话粘贴进来，或说说你想回给爸妈的话。</p>
+              <p class="welcome-hint">AI 会<b>先展示原文</b>，再做<b>亲情转化</b>。</p>
+            </div>
+          </main>
+
+          <div class="address-row">
+            <label for="address">对方称呼</label>
+            <input id="address" type="text" maxlength="8" autocomplete="off"
+                   placeholder="选填，如：爷爷 / 外婆 / 老爸… 留空用默认" />
+          </div>
+
+          <footer class="composer">
+            <button class="icon-btn" id="voiceBtn" title="语音输入（需浏览器支持）">🎙️</button>
+            <textarea id="input" placeholder="输入或粘贴消息…（Enter 发送 / Shift+Enter 换行）" rows="1"></textarea>
+            <button class="send-btn" id="sendBtn">发送</button>
+          </footer>
+          <div class="status" id="status"></div>
+        </div>
+      </div>
     </div>
 
-    <!-- 输入区 -->
-    <footer class="composer">
-      <button class="icon-btn" id="voiceBtn" title="语音输入（需浏览器支持）">🎙️</button>
-      <textarea id="input" placeholder="输入或粘贴消息…（Enter 发送 / Shift+Enter 换行）" rows="1"></textarea>
-      <button class="send-btn" id="sendBtn">发送</button>
-    </footer>
-    <div class="status" id="status"></div>
+    <p class="demo-tip">💡 试试粘贴：「今天买了条鱼，老王住院了，你们都不在家」</p>
   </div>
-  <script src="app.js"></script>
+</section>
+
+<!-- ==================== 工作原理 ==================== -->
+<section class="how-section" id="features">
+  <div class="container">
+    <p class="section-label">工作原理</p>
+    <h2 class="section-title">三步上手，之后完全无感</h2>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h3>📥 收到消息</h3>
+          <p>爸妈照常在微信发语音或文字，不用改变任何习惯</p>
+        </div>
+      </div>
+      <div class="step-arrow">↓</div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h3>🤖 AI 四层解读</h3>
+          <p>自动识别 → 原文展示 → 亲情翻译 → 情绪分析 → 潜台词解读</p>
+        </div>
+      </div>
+      <div class="step-arrow">↓</div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h3>💬 一键暖心回复</h3>
+          <p>推荐回复芯片一键复制，或让 AI 把你的话润色成温暖家常话</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 技术架构 ==================== -->
+<section class="tech-section">
+  <div class="container">
+    <p class="section-label">技术架构</p>
+    <h2 class="section-title">轻量 · 可靠 · 隐私安全</h2>
+
+    <div class="tech-flow">
+      <div class="tech-node tech-node-user">👵 老人发微信</div>
+      <div class="tech-arrow">→</div>
+      <div class="tech-node tech-node-warm">通义千问 Agent<br><small>(百炼 App)</small></div>
+      <div class="tech-arrow">→</div>
+      <div class="tech-node tech-node-success">📱 AI 翻译卡片</div>
+      <div class="tech-arrow">→</div>
+      <div class="tech-node tech-node-user">👦 子女秒懂</div>
+    </div>
+
+    <div class="tech-tags">
+      <span class="tech-tag">阿里云百炼 Qwen</span>
+      <span class="tech-tag">函数计算 FC</span>
+      <span class="tech-tag">GitHub Pages</span>
+      <span class="tech-tag">零服务器运维</span>
+      <span class="tech-tag">CORS 跨域安全</span>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 与竞品对比 ==================== -->
+<section class="compare-section">
+  <div class="container">
+    <p class="section-label">为什么是我们</p>
+    <h2 class="section-title">不是"又一个语音总结工具"</h2>
+
+    <div class="compare-table-wrap">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>产品</th>
+            <th>语音摘要</th>
+            <th>情绪翻译</th>
+            <th>回复润色</th>
+            <th>紧急告警</th>
+            <th>无感使用</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>微信关怀模式</td>
+            <td>❌</td>
+            <td>❌</td>
+            <td>❌</td>
+            <td>❌</td>
+            <td>部分</td>
+          </tr>
+          <tr>
+            <td>通义听悟</td>
+            <td>✅</td>
+            <td>❌</td>
+            <td>❌</td>
+            <td>❌</td>
+            <td>❌</td>
+          </tr>
+          <tr class="highlight-row">
+            <td><b>🌉 亲情翻译官</b></td>
+            <td>✅</td>
+            <td>✅✅</td>
+            <td>✅✅</td>
+            <td>✅</td>
+            <td>✅✅</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-brand">🌉 亲情翻译官 · AI 代际翻译器</div>
+    <p class="footer-info">阿里「小有可为」AI 向善挑战赛 参赛作品 · 2026年7月</p>
+    <p class="footer-tech">基于 阿里云百炼(通义千问) + 函数计算 FC + GitHub Pages 构建</p>
+  </div>
+</footer>
+
+<script src="app.js"></script>
 </body>
 </html>
