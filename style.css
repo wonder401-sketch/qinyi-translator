@@ -331,6 +331,32 @@ body {
 .copy-btn:active { transform: translateY(0); }
 .copy-btn.copied { background: linear-gradient(135deg, var(--success), #388E3C); }
 
+/* 独立的「建议回复」段落：与上方分析卡片明显区隔，复制只复制它 */
+.reply-box {
+  margin-top: 14px;
+  padding: 12px 12px 14px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #FFF7F0 0%, #FFF0F4 100%);
+  border: 1.5px solid #FFD8C2;
+  box-shadow: 0 4px 14px rgba(255,138,61,0.14);
+}
+.tag-reply { background: linear-gradient(135deg, #FF8A3D, #FF6B8A); color: #fff; }
+.reply-content {
+  color: #5A2A12;
+  font-size: 14.5px;
+  font-weight: 600;
+  line-height: 1.75;
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin: 8px 0 0;
+}
+.copy-reply {
+  margin-top: 12px;
+  background: linear-gradient(135deg, #FF8A3D, #FF6B6B);
+  box-shadow: 0 2px 8px rgba(255,138,61,0.3);
+}
+.copy-reply:hover { box-shadow: 0 4px 12px rgba(255,138,61,0.4); }
+
 
 /* ==================== 在线体验 DEMO ==================== */
 .demo-section {
