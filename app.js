@@ -170,7 +170,19 @@
     return t;
   }
 
-  // ---- 渲染：AI 回复卡片（四标签） ----
+  // ---- 取【建议回复】正文的第一段（模型偶尔会在段后追加尾注，只取首段） ----
+  function firstParagraph(text) {
+    if (!text) return "";
+    var t = String(text).trim();
+    // 以空行分段，只保留第一段（去掉模型可能附带的“有空给X打电话吧”之类尾注）
+    var parts = t.split(/\n\s*\n/);
+    var first = parts[0].trim();
+    // 去掉首尾引号（若模型仍带了）
+    first = first.replace(/^[「""'']+/, "").replace(/[」""'']+$/, "");
+    return first.trim();
+  }
+
+  // ---- 渲染：AI 回复卡片（分析标签 + 独立【建议回复】段） ----
   function addAssistant(text) {
     var typing = document.getElementById("typing");
     if (typing) typing.remove();
@@ -179,7 +191,9 @@
     card.className = "ai-card";
     var blocks = parseReply(text);
 
+    // 1) 先渲染分析类标签（原文/亲情翻译/情绪/潜台词/紧急…），跳过【建议回复】
     blocks.forEach(function (b) {
+      if (/建议回复|回复建议/.test(b.tag)) return; // 单独成段处理
       var tag = document.createElement("div");
       tag.className = "tag " + tagClass(b.tag);
       tag.textContent = tagEmoji(b.tag) + b.tag;
@@ -191,59 +205,45 @@
       card.appendChild(c);
     });
 
-    // 提取翻译正文（用于复制和快捷回复）
-    var translationText = "";
-    var summaryBlock = blocks.find(function (b) { return /亲情翻译|摘要|转化/.test(b.tag); });
-    if (summaryBlock) translationText = summaryBlock.content;
-
-    // 快捷回复芯片
-    var quickReplies = extractQuickReplies(text);
-    if (quickReplies.length > 0 || translationText) {
-      var hint = document.createElement("div");
-      hint.className = "chip-hint";
-      hint.textContent = "💡 推荐回复（点击复制）:";
-      card.appendChild(hint);
-
-      var chipRow = document.createElement("div");
-      chipRow.className = "chip-row";
-
-      var chips = quickReplies.length > 0 ? quickReplies : [];
-      if (chips.length === 0 && translationText) {
-        var sentences = translationText.split(/[。！？\n]/).filter(function (s) { return s.trim().length >= 4 && s.trim().length <= 16; });
-        chips = sentences.slice(0, 3);
-      }
-
-      chips.forEach(function (chipText) {
-        var chip = document.createElement("span");
-        chip.className = "chip";
-        chip.textContent = chipText;
-        chip.addEventListener("click", function () {
-          copyToClipboard(chipText);
-          chip.classList.add("copied");
-          setTimeout(function () { chip.classList.remove("copied"); }, 800);
-        });
-        chipRow.appendChild(chip);
-      });
-
-      card.appendChild(chipRow);
+    // 2) 提取【建议回复】正文（前端复制只复制这一段）
+    var replyBlock = blocks.find(function (b) { return /建议回复|回复建议/.test(b.tag); });
+    var replyText = replyBlock ? firstParagraph(replyBlock.content) : "";
+    // 兜底：模型未产出【建议回复】时，用推荐短语拼接，保证复制按钮有内容
+    if (!replyText) {
+      var q = extractQuickReplies(text);
+      if (q.length) replyText = q.join("；");
     }
 
-    // 一键复制按钮（复制【净化后】的翻译正文）
-    if (translationText) {
-      var clean = cleanTranslation(translationText);
+    // 3) 独立“建议回复”高亮段 + 复制按钮（只复制这一段）
+    if (replyText) {
+      var replyBox = document.createElement("div");
+      replyBox.className = "reply-box";
+
+      var rtag = document.createElement("div");
+      rtag.className = "tag tag-reply";
+      rtag.textContent = "💬 建议回复（可直接发给爸妈）";
+
+      var rc = document.createElement("div");
+      rc.className = "reply-content";
+      rc.textContent = replyText;
+
       var copyBtn = document.createElement("button");
-      copyBtn.className = "copy-btn";
-      copyBtn.innerHTML = "📋 复制翻译结果";
+      copyBtn.className = "copy-btn copy-reply";
+      copyBtn.innerHTML = "📋 复制建议回复";
       copyBtn.addEventListener("click", function () {
-        copyToClipboard(clean);
+        copyToClipboard(replyText);
         copyBtn.classList.add("copied");
-        copyBtn.innerHTML = "✅ 已复制";
+        copyBtn.innerHTML = "✅ 已复制建议回复";
         setTimeout(function () {
           copyBtn.classList.remove("copied");
-          copyBtn.innerHTML = "📋 复制翻译结果";
+          copyBtn.innerHTML = "📋 复制建议回复";
         }, 1500);
       });
-      card.appendChild(copyBtn);
+
+      replyBox.appendChild(rtag);
+      replyBox.appendChild(rc);
+      replyBox.appendChild(copyBtn);
+      card.appendChild(replyBox);
     }
 
     chatEl.appendChild(card);
